@@ -1,18 +1,23 @@
-<p *ngIf="!this.task()"> No existen tareas disponibles </p>
-<p *ngIf="this.task()"> Tarea: {{ this.task() | json}}</p>
-
-<hr>
-
-<p *ngIf="this.task() ; else notask">Tarea: {{ this.task() | json}}</p>
-<ng-template #notask>
-    <p> No existen tareas disponibles </p>
-</ng-template>
-
-<hr>
-
 @if (this.task()) {
-    <p> Tarea: {{ this.task() | json}} </p>
-}
-@else {
-    <p> No existen tareas disponibles </p>
+  <div class="max-w-xs rounded overflow-hidden shadow-lg">
+    <img
+      class="w-auto "
+      src="https://logowik.com/content/uploads/images/google-tasks7052.logowik.com.webp"
+      alt="TaskIcon"
+    />
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">{{ this.task()?.nombre }}</div>
+      <p class="text-gray-700 text-base">
+        Duración : {{ this.task()?.duracion }}
+      </p>
+      <p class="text-gray-700 text-base">
+        Creador : {{ this.task()?.creador }}
+      </p>
+      <p class="text-gray-700 text-base">
+        Usuarios Asignados : {{ this.task()?.usuarios }}
+      </p>
+    </div>
+  </div>
+} @else {
+  <p>No existen tareas disponibles con el nombre ingresado, prueba con otro nombre</p>
 }

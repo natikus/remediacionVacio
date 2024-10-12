@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchComponent {
   searchOutput = output<string>();
-  searchValue: string = 'Hola';
+  searchValue: string = '';
   number = 0;
   public search() {
     console.log(
