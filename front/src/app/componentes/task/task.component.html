@@ -1,0 +1,18 @@
+<p *ngIf="!this.task()"> No existen tareas disponibles </p>
+<p *ngIf="this.task()"> Tarea: {{ this.task() | json}}</p>
+
+<hr>
+
+<p *ngIf="this.task() ; else notask">Tarea: {{ this.task() | json}}</p>
+<ng-template #notask>
+    <p> No existen tareas disponibles </p>
+</ng-template>
+
+<hr>
+
+@if (this.task()) {
+    <p> Tarea: {{ this.task() | json}} </p>
+}
+@else {
+    <p> No existen tareas disponibles </p>
+}
