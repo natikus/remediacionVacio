@@ -1,21 +1,20 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Task } from '../../interfaces/task';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { TaskComponent } from '../../componentes/task/task.component';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TaskComponent],
   templateUrl: './tasks.page.html',
-  styleUrl: './tasks.page.css'
+  styleUrl: './tasks.page.css',
 })
 export class TasksPage implements OnInit {
-  private httpClient: HttpClient = inject(HttpClient)
+  tasksService = inject(TasksService);
   taskList: Task[] = [];
   async ngOnInit() {
-    const tasks = await firstValueFrom(this.httpClient.get<Task[]>('/back/tareas'))
+    this.taskList = await this.tasksService.getAllTasks();
   }
-  
 }

@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchValue(value: string) {
-    this.selectedTask = this.taskList?.find((task) => task.nombre == value);
+    this.selectedTask = this.taskList?.find(
+      (task) => task.id_tarea.toString() == value,
+    );
   }
 }

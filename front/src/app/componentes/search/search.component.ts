@@ -11,12 +11,9 @@ import { FormsModule } from '@angular/forms';
 export class SearchComponent {
   searchOutput = output<string>();
   searchValue: string = '';
-  number = 0;
+
   public search() {
-    console.log(
-      'Valor actual ' + this.searchValue + ' ' + 'Click ' + this.number,
-    );
-    this.number += 1;
     this.searchOutput.emit(this.searchValue);
+    this.searchValue = '';
   }
 }

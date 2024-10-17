@@ -1,18 +1,27 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TaskComponent } from '../../../../componentes/task/task.component';
+import { Task } from '../../../../interfaces/task';
+import { TasksService } from '../../../../services/tasks.service';
 
 @Component({
   selector: 'app-taskid',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TaskComponent],
   templateUrl: './taskid.page.html',
-  styleUrl: './taskid.page.css'
+  styleUrl: './taskid.page.css',
 })
-export class TaskidPage implements OnInit{
-  id = input <string>();
+export class TaskidPage implements OnInit {
+  id = input<string>();
+  selectedTask: Task | undefined;
+  tasksService = inject(TasksService);
 
-  ngOnInit(): void {
-    console.log(this.id());
-    console.log(typeof(this.id()));
+  async ngOnInit() {
+    const taskId = this.id();
+    if (taskId) {
+      this.selectedTask = await this.tasksService.getTaskbyId(taskId);
+    } else {
+      console.error('ID de tarea no proporcionado');
+    }
   }
 }

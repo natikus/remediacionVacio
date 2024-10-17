@@ -1,15 +1,27 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { Task } from '../interfaces/task';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TasksService {
+  constructor() {}
 
-  constructor() { }
+  private httpClient: HttpClient = inject(HttpClient);
 
-  async getAllTasks() {
-    const response = await fetch('/back/tareas');
-    const tasks = await response.json();
+  async getAllTasks(): Promise<Task[]> {
+    const tasks = await firstValueFrom(
+      this.httpClient.get<Task[]>('/back/tareas'),
+    );
     return tasks;
+  }
+
+  async getTaskbyId(id: string): Promise<Task> {
+    const task = await firstValueFrom(
+      this.httpClient.get<Task>(`/back/tareas/${id}/`),
+    );
+    return task;
   }
 }
