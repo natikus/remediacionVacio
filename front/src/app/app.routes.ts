@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './componentes/home/home.component';
 import { TasksPage } from './pages/tasks/tasks.page';
 import { TaskidPage } from './pages/tasks/components/taskid/taskid.page';
+import { LoginPage } from './pages/auth/login/login.page';
+import { logueadoGuard } from './guards/logueado.guard';
 
 export const routes: Routes = [
   {
@@ -15,10 +17,15 @@ export const routes: Routes = [
   },
   {
     path: 'tasks',
-    component: TasksPage
+    component: TasksPage,
+    canActivate: [logueadoGuard]
   },
   {
     path: 'tasks/:id',
     component: TaskidPage
+  },
+  {
+    path: 'auth/login',
+    component: LoginPage
   }
 ];
