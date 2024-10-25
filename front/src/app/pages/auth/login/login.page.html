@@ -1,5 +1,17 @@
-<form id="loginForm" (ngSubmit)="this.onSubmit()">
-    <input type="text" name="username" placeholder="Username" [(ngModel)]="this.username">
-    <input type="password" name="password" placeholder="password" [(ngModel)]="this.password">
-    <button type="submit">Login</button>
-</form>
+
+<div class='bg-white h-screen w-screen flex justify-center items-center'>
+    <div class="px-6 py-3 rounded border w-64">
+        <h1 class="text-center text-2xl"> Login </h1>
+        <form id="loginForm" (ngSubmit)="this.onSubmit()">
+            <div class="flex flex-col my-2">
+                <input type="text" class="border rounded px-3 py-1 mt-2"  name="username" placeholder="Username" [(ngModel)]="this.username">
+            </div>
+            <div class="flex flex-col my-2">
+                <input type="password" class="border rounded px-3 py-1 mt-2" name="password" placeholder="password" [(ngModel)]="this.password">
+            </div>
+            <div class="flex flex-col items-center justify-center my-3">
+                <button type="submit" class="my-3 py-1 w-full rounded bg-blue-600 text-blue-200">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
