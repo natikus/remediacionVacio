@@ -4,6 +4,7 @@ import { TasksPage } from './pages/tasks/tasks.page';
 import { TaskidPage } from './pages/tasks/components/taskid/taskid.page';
 import { LoginPage } from './pages/auth/login/login.page';
 import { logueadoGuard } from './guards/logueado.guard';
+import { NuevaTareaPage } from './pages/nueva-tarea/nueva-tarea.page';
 
 export const routes: Routes = [
   {
@@ -18,7 +19,11 @@ export const routes: Routes = [
   {
     path: 'tasks',
     component: TasksPage,
-    canActivate: [logueadoGuard]
+    canActivate: [logueadoGuard],
+  },
+  {
+    path: 'tasks/new',
+    component: NuevaTareaPage,
   },
   {
     path: 'tasks/:id',

@@ -24,8 +24,9 @@ export class LoginPage {
       'auth/',
       JSON.stringify({ username: this.username, contraseña: this.password }),
     );
-    console.log(sent);
     this.apiService.setToken(sent.token);
+    const user = sent.usuario
+    localStorage.setItem('user_id', user.id_usuario);
     this.router.navigate(['/tasks']);
   }
 }

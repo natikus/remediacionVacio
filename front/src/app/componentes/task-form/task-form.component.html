@@ -1,0 +1,55 @@
+<form
+  class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md"
+  (ngSubmit)="onSubmit(formulario)"
+  #formulario="ngForm"
+>
+  <div class="mb-4">
+    <label for="titulo" class="block text-sm font-medium text-gray-700"
+      >Nombre</label
+    >
+    <input
+      type="text"
+      name="nombre"
+      id="nombre"
+      #nombre="ngModel"
+      placeholder="Nombre"
+      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+      [(ngModel)]="task.nombre"
+      minlength="3"
+      maxlength="50"
+      required
+      appTaken
+    />
+    @if (nombre.control) {
+        {{ nombre.control.errors | json }}
+        {{ nombre.control.status }}
+    }
+  </div>
+  <div class="mb-4">
+    <label for="descripcion" class="block text-sm font-medium text-gray-700"
+      >Duracion</label
+    >
+    <input
+      type="number"
+      name="duracion"
+      id="duracion"
+      #duracion="ngModel"
+      class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+      [(ngModel)]="task.duracion"
+      min="10"
+      max="30"
+      required
+      appDivisor="3"
+    />
+    @if (duracion.control) {
+        {{ duracion.control.errors | json }}
+        
+    }
+  </div>
+  <button
+    type="submit"
+    class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+  >
+    Crear
+  </button>
+</form>
