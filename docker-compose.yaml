@@ -1,31 +1,36 @@
 name: caso2
 services:
-  back:
-    image: back_angular
-    container_name: back_angular
+  backend:
+    image: backend
+    container_name: backend
     build:
-      context: ./back
+      context: ./backend
     command: sh -c "npm install && npm run dev"
     volumes:
-      - ./back:/back
+      - ./backend:/backend
     environment:
       - PGDATABASE=${PGDATABASE}
       - PGUSER=${PGUSER}
       - PGPASSWORD=${PGPASSWORD}
       - PGHOST=${PGHOST}
-  front:
-    image: front_angular
-    container_name: front_angular
-    build: 
-      context: ./front
+      - user=${user}
+      - pass=${pass}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+  frontend:
+    image: frontend
+    container_name: frontend
+    build:
+      context: ./frontend
+    #tty: true
     command: sh -c "npm install && npm start"
     volumes:
-      - ./front/:/front
-  base:
-    image: base_angular
-    container_name: base_angular
+      - ./frontend/:/frontend
+  database:
+    image: database
+    container_name: database
     build:
-      context: ./base
+      context: ./database
     environment:
       - POSTGRES_DB=${PGDATABASE}
       - POSTGRES_USER=${PGUSER}
@@ -33,14 +38,20 @@ services:
     ports:
       - 5432:5432
   proxy:
-    image: nginx:alpine
-    container_name: proxy_angular
-    volumes:
-      - ./proxy/myconf.template:/etc/nginx/templates/default.conf.template
+    image: proxy
+    container_name: proxy
+    build: ./proxy
     ports:
       - 80:80
-    depends_on:
-      - front
-      - back
+      - 443:443
+    volumes:
+      - ./proxy/myconf.template:/etc/nginx/templates/default.conf.template
+      - ./proxy/certs:/etc/nginx/certs
+
     environment:
-      - FRONT_PORT=${FRONT_PORT}
+      - FRONT_PORT=4200
+      - FRONTEND_URL=${FRONTEND_URL}
+      - BACKEND_URL=${BACKEND_URL}
+    depends_on:
+      - frontend
+      - backend

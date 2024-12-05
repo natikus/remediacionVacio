@@ -1,6 +1,0 @@
-<app-search (searchOutput)="onSearchValue($event)"></app-search>
-@if (!this.selectedTask) {
-  <p>No existen tareas con el id actual, intenta con otro</p>
-} @else {
-  <app-task [task]="this.selectedTask"></app-task>
-}
